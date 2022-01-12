@@ -1,11 +1,27 @@
+import axios from 'axios';
 import React from 'react';
+
+
 // import User from './components/User';
 // import Follower from './components/Follower';
 // import FollowerList from './components/FollowerList';
 
 class App extends React.Component {
 
+state = {
+  userInfo: []
+}
 
+componentDidMount(){
+  axios.get('https://api.github.com/users/jbanks628')
+  .then(res=>{
+    this.setState({
+      ...this.state,
+      userInfo: res.data
+    })
+  })
+  .catch(err=>console.error(err))
+}
 
   render() {
     return(<div>
@@ -17,8 +33,10 @@ class App extends React.Component {
         />
         <button>Search</button>
       </form>
+      <div>
       {/* <User />
       <Follower /> */}
+      </div>
     </div>);
   }
 }
