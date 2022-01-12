@@ -1,12 +1,12 @@
 import axios from "axios";
 import React from "react";
 import User from "./components/User";
-// import Follower from './components/Follower';
-// import FollowerList from './components/FollowerList';
+import FollowerList from "./components/FollowerList";
 
 class App extends React.Component {
   state = {
     userInfo: {},
+    followerInfo: [],
   };
 
   componentDidMount() {
@@ -22,6 +22,20 @@ class App extends React.Component {
       .catch((err) => console.error(err));
   }
 
+  componentDidUpdate(initProps, initState) {
+    if (this.state.userInfo !== initState.userInfo) {
+      axios
+        .get(`https://api.github.com/users/jbanks628/followers`)
+        .then((res) => {
+          console.log(res.data);
+          this.setState({
+            ...this.state,
+            followerInfo: res.data,
+          });
+        })
+        .catch((err) => console.error(err));
+    }
+  }
   render() {
     return (
       <div>
@@ -32,7 +46,7 @@ class App extends React.Component {
         </form>
 
         <User user={this.state.userInfo} />
-        {/* <Follower /> */}
+        <FollowerList list={this.state.followerInfo} />
       </div>
     );
   }
