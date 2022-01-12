@@ -1,8 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-
-
-// import User from './components/User';
+import User from './components/User';
 // import Follower from './components/Follower';
 // import FollowerList from './components/FollowerList';
 
@@ -34,8 +32,8 @@ componentDidMount(){
         <button>Search</button>
       </form>
       <div>
-      {/* <User />
-      <Follower /> */}
+      <User />
+      {/* <Follower /> */}
       </div>
     </div>);
   }
